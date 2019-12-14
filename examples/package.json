@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "request": "^2.88.0",
+    "yargs": "^15.0.2"
+  }
+}

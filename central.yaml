@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: central
+  labels:
+    app: central
+spec:
+  containers:
+  - image: femtoassembler/assembly-base
+    name: central
+    imagePullPolicy: Never
+    command: [ "/bin/bash", "-c", "--" ]
+    args: [ "while true; do sleep 2; done;" ]
+    volumeMounts:
+    - mountPath: /shared
+      name: home-volume
+  volumes:
+  - name: home-volume
+    hostPath:
+      path: /assembly-shared

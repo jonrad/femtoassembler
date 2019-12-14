@@ -1,0 +1,264 @@
+apiVersion: skaffold/v1
+kind: Config
+build:
+  local:
+    push: false
+    useBuildkit: true
+  artifacts:
+  - image: femtoassembler/executor
+    context: apps/executor
+    sync:
+      manual:
+      - src: '**/*.js'
+        dest: /usr/src/app/
+  - image: femtoassembler/instruction-base-image
+    context: apps/instruction-base-image
+    sync:
+      manual:
+      - src: '**/*.js'
+        dest: /usr/src/app/
+  - image: femtoassembler/memory
+    context: apps/memory
+    sync:
+      manual:
+      - src: '**/*.js'
+        dest: /usr/src/app/
+  - image: femtoassembler/assembler-parse-line
+    context: apps/assembler-parse-line
+    sync:
+      manual:
+      - src: '**/*.js'
+        dest: /usr/src/app/
+  - image: femtoassembler/assembler
+    context: apps/assembler
+    sync:
+      manual:
+      - src: '**/*.js'
+        dest: /usr/src/app/
+  - image: femtoassembler/cpu
+    context: apps/cpu
+    sync:
+      manual:
+      - src: '**/*.js'
+        dest: /usr/src/app/
+  - image: femtoassembler/jmp-address
+    context: apps/instructions/jmp-address
+  
+  - image: femtoassembler/none
+    context: apps/instructions/none
+  
+  - image: femtoassembler/mov-reg-to-reg
+    context: apps/instructions/mov-reg-to-reg
+  
+  - image: femtoassembler/mov-address-to-reg
+    context: apps/instructions/mov-address-to-reg
+  
+  - image: femtoassembler/mov-regaddress-to-reg
+    context: apps/instructions/mov-regaddress-to-reg
+  
+  - image: femtoassembler/mov-reg-to-address
+    context: apps/instructions/mov-reg-to-address
+  
+  - image: femtoassembler/mov-reg-to-regaddress
+    context: apps/instructions/mov-reg-to-regaddress
+  
+  - image: femtoassembler/mov-number-to-reg
+    context: apps/instructions/mov-number-to-reg
+  
+  - image: femtoassembler/mov-number-to-address
+    context: apps/instructions/mov-number-to-address
+  
+  - image: femtoassembler/mov-number-to-regaddress
+    context: apps/instructions/mov-number-to-regaddress
+  
+  - image: femtoassembler/add-reg-to-reg
+    context: apps/instructions/add-reg-to-reg
+  
+  - image: femtoassembler/add-regaddress-to-reg
+    context: apps/instructions/add-regaddress-to-reg
+  
+  - image: femtoassembler/add-address-to-reg
+    context: apps/instructions/add-address-to-reg
+  
+  - image: femtoassembler/add-number-to-reg
+    context: apps/instructions/add-number-to-reg
+  
+  - image: femtoassembler/sub-reg-from-reg
+    context: apps/instructions/sub-reg-from-reg
+  
+  - image: femtoassembler/sub-regaddress-from-reg
+    context: apps/instructions/sub-regaddress-from-reg
+  
+  - image: femtoassembler/sub-address-from-reg
+    context: apps/instructions/sub-address-from-reg
+  
+  - image: femtoassembler/sub-number-from-reg
+    context: apps/instructions/sub-number-from-reg
+  
+  - image: femtoassembler/inc-reg
+    context: apps/instructions/inc-reg
+  
+  - image: femtoassembler/dec-reg
+    context: apps/instructions/dec-reg
+  
+  - image: femtoassembler/cmp-reg-with-reg
+    context: apps/instructions/cmp-reg-with-reg
+  
+  - image: femtoassembler/cmp-regaddress-with-reg
+    context: apps/instructions/cmp-regaddress-with-reg
+  
+  - image: femtoassembler/cmp-address-with-reg
+    context: apps/instructions/cmp-address-with-reg
+  
+  - image: femtoassembler/cmp-number-with-reg
+    context: apps/instructions/cmp-number-with-reg
+  
+  - image: femtoassembler/jmp-regaddress
+    context: apps/instructions/jmp-regaddress
+  
+  - image: femtoassembler/jc-regaddress
+    context: apps/instructions/jc-regaddress
+  
+  - image: femtoassembler/jc-address
+    context: apps/instructions/jc-address
+  
+  - image: femtoassembler/jnc-regaddress
+    context: apps/instructions/jnc-regaddress
+  
+  - image: femtoassembler/jnc-address
+    context: apps/instructions/jnc-address
+  
+  - image: femtoassembler/jz-regaddress
+    context: apps/instructions/jz-regaddress
+  
+  - image: femtoassembler/jz-address
+    context: apps/instructions/jz-address
+  
+  - image: femtoassembler/jnz-regaddress
+    context: apps/instructions/jnz-regaddress
+  
+  - image: femtoassembler/jnz-address
+    context: apps/instructions/jnz-address
+  
+  - image: femtoassembler/ja-regaddress
+    context: apps/instructions/ja-regaddress
+  
+  - image: femtoassembler/ja-address
+    context: apps/instructions/ja-address
+  
+  - image: femtoassembler/jna-regaddress
+    context: apps/instructions/jna-regaddress
+  
+  - image: femtoassembler/jna-address
+    context: apps/instructions/jna-address
+  
+  - image: femtoassembler/push-reg
+    context: apps/instructions/push-reg
+  
+  - image: femtoassembler/push-regaddress
+    context: apps/instructions/push-regaddress
+  
+  - image: femtoassembler/push-address
+    context: apps/instructions/push-address
+  
+  - image: femtoassembler/push-number
+    context: apps/instructions/push-number
+  
+  - image: femtoassembler/pop-reg
+    context: apps/instructions/pop-reg
+  
+  - image: femtoassembler/call-regaddress
+    context: apps/instructions/call-regaddress
+  
+  - image: femtoassembler/call-address
+    context: apps/instructions/call-address
+  
+  - image: femtoassembler/ret
+    context: apps/instructions/ret
+  
+  - image: femtoassembler/mul-reg
+    context: apps/instructions/mul-reg
+  
+  - image: femtoassembler/mul-regaddress
+    context: apps/instructions/mul-regaddress
+  
+  - image: femtoassembler/mul-address
+    context: apps/instructions/mul-address
+  
+  - image: femtoassembler/mul-number
+    context: apps/instructions/mul-number
+  
+  - image: femtoassembler/div-reg
+    context: apps/instructions/div-reg
+  
+  - image: femtoassembler/div-regaddress
+    context: apps/instructions/div-regaddress
+  
+  - image: femtoassembler/div-address
+    context: apps/instructions/div-address
+  
+  - image: femtoassembler/div-number
+    context: apps/instructions/div-number
+  
+  - image: femtoassembler/and-reg-with-reg
+    context: apps/instructions/and-reg-with-reg
+  
+  - image: femtoassembler/and-regaddress-with-reg
+    context: apps/instructions/and-regaddress-with-reg
+  
+  - image: femtoassembler/and-address-with-reg
+    context: apps/instructions/and-address-with-reg
+  
+  - image: femtoassembler/and-number-with-reg
+    context: apps/instructions/and-number-with-reg
+  
+  - image: femtoassembler/or-reg-with-reg
+    context: apps/instructions/or-reg-with-reg
+  
+  - image: femtoassembler/or-regaddress-with-reg
+    context: apps/instructions/or-regaddress-with-reg
+  
+  - image: femtoassembler/or-address-with-reg
+    context: apps/instructions/or-address-with-reg
+  
+  - image: femtoassembler/or-number-with-reg
+    context: apps/instructions/or-number-with-reg
+  
+  - image: femtoassembler/xor-reg-with-reg
+    context: apps/instructions/xor-reg-with-reg
+  
+  - image: femtoassembler/xor-regaddress-with-reg
+    context: apps/instructions/xor-regaddress-with-reg
+  
+  - image: femtoassembler/xor-address-with-reg
+    context: apps/instructions/xor-address-with-reg
+  
+  - image: femtoassembler/xor-number-with-reg
+    context: apps/instructions/xor-number-with-reg
+  
+  - image: femtoassembler/not-reg
+    context: apps/instructions/not-reg
+  
+  - image: femtoassembler/shl-reg-with-reg
+    context: apps/instructions/shl-reg-with-reg
+  
+  - image: femtoassembler/shl-regaddress-with-reg
+    context: apps/instructions/shl-regaddress-with-reg
+  
+  - image: femtoassembler/shl-address-with-reg
+    context: apps/instructions/shl-address-with-reg
+  
+  - image: femtoassembler/shl-number-with-reg
+    context: apps/instructions/shl-number-with-reg
+  
+  - image: femtoassembler/shr-reg-with-reg
+    context: apps/instructions/shr-reg-with-reg
+  
+  - image: femtoassembler/shr-regaddress-with-reg
+    context: apps/instructions/shr-regaddress-with-reg
+  
+  - image: femtoassembler/shr-address-with-reg
+    context: apps/instructions/shr-address-with-reg
+  
+  - image: femtoassembler/shr-number-with-reg
+    context: apps/instructions/shr-number-with-reg

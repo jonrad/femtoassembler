@@ -1,0 +1,2187 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: instruction
+spec:
+  selector:
+    app: instruction
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: executor
+spec:
+  selector:
+    app: executor
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: executor
+  labels:
+    app: executor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: executor
+  template: 
+    metadata:
+      name: executor
+      labels:
+        app: executor
+    spec:
+      containers:
+      - image: femtoassembler/executor
+        name: executor
+        imagePullPolicy: Never
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: memory
+  labels:
+    app: memory
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: memory
+  template: 
+    metadata:
+      name: memory
+      labels:
+        app: memory
+    spec:
+      containers:
+      - image: femtoassembler/memory
+        name: memory
+        imagePullPolicy: Never
+        command: [ "npm" ]
+        args: [ "run", "dev" ]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: assembler-parse-line
+spec:
+  selector:
+    app: assembler-parse-line
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: assembler-parse-line
+  labels:
+    app: assembler-parse-line
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: assembler-parse-line
+  template: 
+    metadata:
+      name: assembler-parse-line
+      labels:
+        app: assembler-parse-line
+    spec:
+      containers:
+      - image: femtoassembler/assembler-parse-line
+        name: assembler-parse-line
+        imagePullPolicy: Never
+        command: [ "npm" ]
+        args: [ "run", "dev" ]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: assembler
+spec:
+  selector:
+    app: assembler
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: assembler
+  labels:
+    app: assembler
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: assembler
+  template: 
+    metadata:
+      name: assembler
+      labels:
+        app: assembler
+    spec:
+      containers:
+      - image: femtoassembler/assembler
+        name: assembler
+        imagePullPolicy: Never
+        command: [ "npm" ]
+        args: [ "run", "dev" ]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cpu
+spec:
+  selector:
+    app: cpu
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cpu
+  labels:
+    app: cpu
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cpu
+  template: 
+    metadata:
+      name: cpu
+      labels:
+        app: cpu
+    spec:
+      containers:
+      - image: femtoassembler/cpu
+        name: cpu
+        imagePullPolicy: Never
+        command: [ "npm" ]
+        args: [ "run", "dev" ]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: memory
+spec:
+  selector:
+    app: memory
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jmp-address
+  labels:
+    app: instruction
+    instruction: jmp-address
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: jmp-address
+  template: 
+    metadata:
+      name: jmp-address
+      labels:
+        app: instruction
+        instruction: jmp-address
+    spec:
+      hostname: jmp-address
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/jmp-address
+        name: jmp-address
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jnc-address
+  labels:
+    app: instruction
+    instruction: jnc-address
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: jnc-address
+  template: 
+    metadata:
+      name: jnc-address
+      labels:
+        app: instruction
+        instruction: jnc-address
+    spec:
+      hostname: jnc-address
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/jnc-address
+        name: jnc-address
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jmp-regaddress
+  labels:
+    app: instruction
+    instruction: jmp-regaddress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: jmp-regaddress
+  template: 
+    metadata:
+      name: jmp-regaddress
+      labels:
+        app: instruction
+        instruction: jmp-regaddress
+    spec:
+      hostname: jmp-regaddress
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/jmp-regaddress
+        name: jmp-regaddress
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jnc-regaddress
+  labels:
+    app: instruction
+    instruction: jnc-regaddress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: jnc-regaddress
+  template: 
+    metadata:
+      name: jnc-regaddress
+      labels:
+        app: instruction
+        instruction: jnc-regaddress
+    spec:
+      hostname: jnc-regaddress
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/jnc-regaddress
+        name: jnc-regaddress
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jc-address
+  labels:
+    app: instruction
+    instruction: jc-address
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: jc-address
+  template: 
+    metadata:
+      name: jc-address
+      labels:
+        app: instruction
+        instruction: jc-address
+    spec:
+      hostname: jc-address
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/jc-address
+        name: jc-address
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jz-address
+  labels:
+    app: instruction
+    instruction: jz-address
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: jz-address
+  template: 
+    metadata:
+      name: jz-address
+      labels:
+        app: instruction
+        instruction: jz-address
+    spec:
+      hostname: jz-address
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/jz-address
+        name: jz-address
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jz-regaddress
+  labels:
+    app: instruction
+    instruction: jz-regaddress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: jz-regaddress
+  template: 
+    metadata:
+      name: jz-regaddress
+      labels:
+        app: instruction
+        instruction: jz-regaddress
+    spec:
+      hostname: jz-regaddress
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/jz-regaddress
+        name: jz-regaddress
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jnz-address
+  labels:
+    app: instruction
+    instruction: jnz-address
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: jnz-address
+  template: 
+    metadata:
+      name: jnz-address
+      labels:
+        app: instruction
+        instruction: jnz-address
+    spec:
+      hostname: jnz-address
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/jnz-address
+        name: jnz-address
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jnz-regaddress
+  labels:
+    app: instruction
+    instruction: jnz-regaddress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: jnz-regaddress
+  template: 
+    metadata:
+      name: jnz-regaddress
+      labels:
+        app: instruction
+        instruction: jnz-regaddress
+    spec:
+      hostname: jnz-regaddress
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/jnz-regaddress
+        name: jnz-regaddress
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ja-regaddress
+  labels:
+    app: instruction
+    instruction: ja-regaddress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: ja-regaddress
+  template: 
+    metadata:
+      name: ja-regaddress
+      labels:
+        app: instruction
+        instruction: ja-regaddress
+    spec:
+      hostname: ja-regaddress
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/ja-regaddress
+        name: ja-regaddress
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jna-regaddress
+  labels:
+    app: instruction
+    instruction: jna-regaddress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: jna-regaddress
+  template: 
+    metadata:
+      name: jna-regaddress
+      labels:
+        app: instruction
+        instruction: jna-regaddress
+    spec:
+      hostname: jna-regaddress
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/jna-regaddress
+        name: jna-regaddress
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: push-reg
+  labels:
+    app: instruction
+    instruction: push-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: push-reg
+  template: 
+    metadata:
+      name: push-reg
+      labels:
+        app: instruction
+        instruction: push-reg
+    spec:
+      hostname: push-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/push-reg
+        name: push-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ja-address
+  labels:
+    app: instruction
+    instruction: ja-address
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: ja-address
+  template: 
+    metadata:
+      name: ja-address
+      labels:
+        app: instruction
+        instruction: ja-address
+    spec:
+      hostname: ja-address
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/ja-address
+        name: ja-address
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: push-regaddress
+  labels:
+    app: instruction
+    instruction: push-regaddress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: push-regaddress
+  template: 
+    metadata:
+      name: push-regaddress
+      labels:
+        app: instruction
+        instruction: push-regaddress
+    spec:
+      hostname: push-regaddress
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/push-regaddress
+        name: push-regaddress
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jna-address
+  labels:
+    app: instruction
+    instruction: jna-address
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: jna-address
+  template: 
+    metadata:
+      name: jna-address
+      labels:
+        app: instruction
+        instruction: jna-address
+    spec:
+      hostname: jna-address
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/jna-address
+        name: jna-address
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: push-address
+  labels:
+    app: instruction
+    instruction: push-address
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: push-address
+  template: 
+    metadata:
+      name: push-address
+      labels:
+        app: instruction
+        instruction: push-address
+    spec:
+      hostname: push-address
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/push-address
+        name: push-address
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: push-number
+  labels:
+    app: instruction
+    instruction: push-number
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: push-number
+  template: 
+    metadata:
+      name: push-number
+      labels:
+        app: instruction
+        instruction: push-number
+    spec:
+      hostname: push-number
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/push-number
+        name: push-number
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: call-regaddress
+  labels:
+    app: instruction
+    instruction: call-regaddress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: call-regaddress
+  template: 
+    metadata:
+      name: call-regaddress
+      labels:
+        app: instruction
+        instruction: call-regaddress
+    spec:
+      hostname: call-regaddress
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/call-regaddress
+        name: call-regaddress
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: call-address
+  labels:
+    app: instruction
+    instruction: call-address
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: call-address
+  template: 
+    metadata:
+      name: call-address
+      labels:
+        app: instruction
+        instruction: call-address
+    spec:
+      hostname: call-address
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/call-address
+        name: call-address
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pop-reg
+  labels:
+    app: instruction
+    instruction: pop-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: pop-reg
+  template: 
+    metadata:
+      name: pop-reg
+      labels:
+        app: instruction
+        instruction: pop-reg
+    spec:
+      hostname: pop-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/pop-reg
+        name: pop-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mul-number
+  labels:
+    app: instruction
+    instruction: mul-number
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: mul-number
+  template: 
+    metadata:
+      name: mul-number
+      labels:
+        app: instruction
+        instruction: mul-number
+    spec:
+      hostname: mul-number
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/mul-number
+        name: mul-number
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mul-reg
+  labels:
+    app: instruction
+    instruction: mul-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: mul-reg
+  template: 
+    metadata:
+      name: mul-reg
+      labels:
+        app: instruction
+        instruction: mul-reg
+    spec:
+      hostname: mul-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/mul-reg
+        name: mul-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mul-regaddress
+  labels:
+    app: instruction
+    instruction: mul-regaddress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: mul-regaddress
+  template: 
+    metadata:
+      name: mul-regaddress
+      labels:
+        app: instruction
+        instruction: mul-regaddress
+    spec:
+      hostname: mul-regaddress
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/mul-regaddress
+        name: mul-regaddress
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mul-address
+  labels:
+    app: instruction
+    instruction: mul-address
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: mul-address
+  template: 
+    metadata:
+      name: mul-address
+      labels:
+        app: instruction
+        instruction: mul-address
+    spec:
+      hostname: mul-address
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/mul-address
+        name: mul-address
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: div-regaddress
+  labels:
+    app: instruction
+    instruction: div-regaddress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: div-regaddress
+  template: 
+    metadata:
+      name: div-regaddress
+      labels:
+        app: instruction
+        instruction: div-regaddress
+    spec:
+      hostname: div-regaddress
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/div-regaddress
+        name: div-regaddress
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: div-number
+  labels:
+    app: instruction
+    instruction: div-number
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: div-number
+  template: 
+    metadata:
+      name: div-number
+      labels:
+        app: instruction
+        instruction: div-number
+    spec:
+      hostname: div-number
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/div-number
+        name: div-number
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: div-address
+  labels:
+    app: instruction
+    instruction: div-address
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: div-address
+  template: 
+    metadata:
+      name: div-address
+      labels:
+        app: instruction
+        instruction: div-address
+    spec:
+      hostname: div-address
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/div-address
+        name: div-address
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: div-reg
+  labels:
+    app: instruction
+    instruction: div-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: div-reg
+  template: 
+    metadata:
+      name: div-reg
+      labels:
+        app: instruction
+        instruction: div-reg
+    spec:
+      hostname: div-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/div-reg
+        name: div-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: and-regaddress-with-reg
+  labels:
+    app: instruction
+    instruction: and-regaddress-with-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: and-regaddress-with-reg
+  template: 
+    metadata:
+      name: and-regaddress-with-reg
+      labels:
+        app: instruction
+        instruction: and-regaddress-with-reg
+    spec:
+      hostname: and-regaddress-with-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/and-regaddress-with-reg
+        name: and-regaddress-with-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: and-reg-with-reg
+  labels:
+    app: instruction
+    instruction: and-reg-with-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: and-reg-with-reg
+  template: 
+    metadata:
+      name: and-reg-with-reg
+      labels:
+        app: instruction
+        instruction: and-reg-with-reg
+    spec:
+      hostname: and-reg-with-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/and-reg-with-reg
+        name: and-reg-with-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: and-address-with-reg
+  labels:
+    app: instruction
+    instruction: and-address-with-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: and-address-with-reg
+  template: 
+    metadata:
+      name: and-address-with-reg
+      labels:
+        app: instruction
+        instruction: and-address-with-reg
+    spec:
+      hostname: and-address-with-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/and-address-with-reg
+        name: and-address-with-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: or-regaddress-with-reg
+  labels:
+    app: instruction
+    instruction: or-regaddress-with-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: or-regaddress-with-reg
+  template: 
+    metadata:
+      name: or-regaddress-with-reg
+      labels:
+        app: instruction
+        instruction: or-regaddress-with-reg
+    spec:
+      hostname: or-regaddress-with-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/or-regaddress-with-reg
+        name: or-regaddress-with-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: or-address-with-reg
+  labels:
+    app: instruction
+    instruction: or-address-with-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: or-address-with-reg
+  template: 
+    metadata:
+      name: or-address-with-reg
+      labels:
+        app: instruction
+        instruction: or-address-with-reg
+    spec:
+      hostname: or-address-with-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/or-address-with-reg
+        name: or-address-with-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: and-number-with-reg
+  labels:
+    app: instruction
+    instruction: and-number-with-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: and-number-with-reg
+  template: 
+    metadata:
+      name: and-number-with-reg
+      labels:
+        app: instruction
+        instruction: and-number-with-reg
+    spec:
+      hostname: and-number-with-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/and-number-with-reg
+        name: and-number-with-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: or-reg-with-reg
+  labels:
+    app: instruction
+    instruction: or-reg-with-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: or-reg-with-reg
+  template: 
+    metadata:
+      name: or-reg-with-reg
+      labels:
+        app: instruction
+        instruction: or-reg-with-reg
+    spec:
+      hostname: or-reg-with-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/or-reg-with-reg
+        name: or-reg-with-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: xor-reg-with-reg
+  labels:
+    app: instruction
+    instruction: xor-reg-with-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: xor-reg-with-reg
+  template: 
+    metadata:
+      name: xor-reg-with-reg
+      labels:
+        app: instruction
+        instruction: xor-reg-with-reg
+    spec:
+      hostname: xor-reg-with-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/xor-reg-with-reg
+        name: xor-reg-with-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: or-number-with-reg
+  labels:
+    app: instruction
+    instruction: or-number-with-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: or-number-with-reg
+  template: 
+    metadata:
+      name: or-number-with-reg
+      labels:
+        app: instruction
+        instruction: or-number-with-reg
+    spec:
+      hostname: or-number-with-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/or-number-with-reg
+        name: or-number-with-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: xor-regaddress-with-reg
+  labels:
+    app: instruction
+    instruction: xor-regaddress-with-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: xor-regaddress-with-reg
+  template: 
+    metadata:
+      name: xor-regaddress-with-reg
+      labels:
+        app: instruction
+        instruction: xor-regaddress-with-reg
+    spec:
+      hostname: xor-regaddress-with-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/xor-regaddress-with-reg
+        name: xor-regaddress-with-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: xor-number-with-reg
+  labels:
+    app: instruction
+    instruction: xor-number-with-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: xor-number-with-reg
+  template: 
+    metadata:
+      name: xor-number-with-reg
+      labels:
+        app: instruction
+        instruction: xor-number-with-reg
+    spec:
+      hostname: xor-number-with-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/xor-number-with-reg
+        name: xor-number-with-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: not-reg
+  labels:
+    app: instruction
+    instruction: not-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: not-reg
+  template: 
+    metadata:
+      name: not-reg
+      labels:
+        app: instruction
+        instruction: not-reg
+    spec:
+      hostname: not-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/not-reg
+        name: not-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shl-regaddress-with-reg
+  labels:
+    app: instruction
+    instruction: shl-regaddress-with-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: shl-regaddress-with-reg
+  template: 
+    metadata:
+      name: shl-regaddress-with-reg
+      labels:
+        app: instruction
+        instruction: shl-regaddress-with-reg
+    spec:
+      hostname: shl-regaddress-with-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/shl-regaddress-with-reg
+        name: shl-regaddress-with-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: xor-address-with-reg
+  labels:
+    app: instruction
+    instruction: xor-address-with-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: xor-address-with-reg
+  template: 
+    metadata:
+      name: xor-address-with-reg
+      labels:
+        app: instruction
+        instruction: xor-address-with-reg
+    spec:
+      hostname: xor-address-with-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/xor-address-with-reg
+        name: xor-address-with-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shl-address-with-reg
+  labels:
+    app: instruction
+    instruction: shl-address-with-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: shl-address-with-reg
+  template: 
+    metadata:
+      name: shl-address-with-reg
+      labels:
+        app: instruction
+        instruction: shl-address-with-reg
+    spec:
+      hostname: shl-address-with-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/shl-address-with-reg
+        name: shl-address-with-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shl-reg-with-reg
+  labels:
+    app: instruction
+    instruction: shl-reg-with-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: shl-reg-with-reg
+  template: 
+    metadata:
+      name: shl-reg-with-reg
+      labels:
+        app: instruction
+        instruction: shl-reg-with-reg
+    spec:
+      hostname: shl-reg-with-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/shl-reg-with-reg
+        name: shl-reg-with-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shl-number-with-reg
+  labels:
+    app: instruction
+    instruction: shl-number-with-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: shl-number-with-reg
+  template: 
+    metadata:
+      name: shl-number-with-reg
+      labels:
+        app: instruction
+        instruction: shl-number-with-reg
+    spec:
+      hostname: shl-number-with-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/shl-number-with-reg
+        name: shl-number-with-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shr-regaddress-with-reg
+  labels:
+    app: instruction
+    instruction: shr-regaddress-with-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: shr-regaddress-with-reg
+  template: 
+    metadata:
+      name: shr-regaddress-with-reg
+      labels:
+        app: instruction
+        instruction: shr-regaddress-with-reg
+    spec:
+      hostname: shr-regaddress-with-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/shr-regaddress-with-reg
+        name: shr-regaddress-with-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shr-address-with-reg
+  labels:
+    app: instruction
+    instruction: shr-address-with-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: shr-address-with-reg
+  template: 
+    metadata:
+      name: shr-address-with-reg
+      labels:
+        app: instruction
+        instruction: shr-address-with-reg
+    spec:
+      hostname: shr-address-with-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/shr-address-with-reg
+        name: shr-address-with-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shr-reg-with-reg
+  labels:
+    app: instruction
+    instruction: shr-reg-with-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: shr-reg-with-reg
+  template: 
+    metadata:
+      name: shr-reg-with-reg
+      labels:
+        app: instruction
+        instruction: shr-reg-with-reg
+    spec:
+      hostname: shr-reg-with-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/shr-reg-with-reg
+        name: shr-reg-with-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shr-number-with-reg
+  labels:
+    app: instruction
+    instruction: shr-number-with-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: shr-number-with-reg
+  template: 
+    metadata:
+      name: shr-number-with-reg
+      labels:
+        app: instruction
+        instruction: shr-number-with-reg
+    spec:
+      hostname: shr-number-with-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/shr-number-with-reg
+        name: shr-number-with-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ret
+  labels:
+    app: instruction
+    instruction: ret
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: ret
+  template: 
+    metadata:
+      name: ret
+      labels:
+        app: instruction
+        instruction: ret
+    spec:
+      hostname: ret
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/ret
+        name: ret
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: none
+  labels:
+    app: instruction
+    instruction: none
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: none
+  template: 
+    metadata:
+      name: none
+      labels:
+        app: instruction
+        instruction: none
+    spec:
+      hostname: none
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/none
+        name: none
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mov-reg-to-reg
+  labels:
+    app: instruction
+    instruction: mov-reg-to-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: mov-reg-to-reg
+  template: 
+    metadata:
+      name: mov-reg-to-reg
+      labels:
+        app: instruction
+        instruction: mov-reg-to-reg
+    spec:
+      hostname: mov-reg-to-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/mov-reg-to-reg
+        name: mov-reg-to-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mov-regaddress-to-reg
+  labels:
+    app: instruction
+    instruction: mov-regaddress-to-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: mov-regaddress-to-reg
+  template: 
+    metadata:
+      name: mov-regaddress-to-reg
+      labels:
+        app: instruction
+        instruction: mov-regaddress-to-reg
+    spec:
+      hostname: mov-regaddress-to-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/mov-regaddress-to-reg
+        name: mov-regaddress-to-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mov-reg-to-address
+  labels:
+    app: instruction
+    instruction: mov-reg-to-address
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: mov-reg-to-address
+  template: 
+    metadata:
+      name: mov-reg-to-address
+      labels:
+        app: instruction
+        instruction: mov-reg-to-address
+    spec:
+      hostname: mov-reg-to-address
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/mov-reg-to-address
+        name: mov-reg-to-address
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mov-address-to-reg
+  labels:
+    app: instruction
+    instruction: mov-address-to-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: mov-address-to-reg
+  template: 
+    metadata:
+      name: mov-address-to-reg
+      labels:
+        app: instruction
+        instruction: mov-address-to-reg
+    spec:
+      hostname: mov-address-to-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/mov-address-to-reg
+        name: mov-address-to-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mov-reg-to-regaddress
+  labels:
+    app: instruction
+    instruction: mov-reg-to-regaddress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: mov-reg-to-regaddress
+  template: 
+    metadata:
+      name: mov-reg-to-regaddress
+      labels:
+        app: instruction
+        instruction: mov-reg-to-regaddress
+    spec:
+      hostname: mov-reg-to-regaddress
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/mov-reg-to-regaddress
+        name: mov-reg-to-regaddress
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mov-number-to-address
+  labels:
+    app: instruction
+    instruction: mov-number-to-address
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: mov-number-to-address
+  template: 
+    metadata:
+      name: mov-number-to-address
+      labels:
+        app: instruction
+        instruction: mov-number-to-address
+    spec:
+      hostname: mov-number-to-address
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/mov-number-to-address
+        name: mov-number-to-address
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: add-reg-to-reg
+  labels:
+    app: instruction
+    instruction: add-reg-to-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: add-reg-to-reg
+  template: 
+    metadata:
+      name: add-reg-to-reg
+      labels:
+        app: instruction
+        instruction: add-reg-to-reg
+    spec:
+      hostname: add-reg-to-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/add-reg-to-reg
+        name: add-reg-to-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mov-number-to-reg
+  labels:
+    app: instruction
+    instruction: mov-number-to-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: mov-number-to-reg
+  template: 
+    metadata:
+      name: mov-number-to-reg
+      labels:
+        app: instruction
+        instruction: mov-number-to-reg
+    spec:
+      hostname: mov-number-to-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/mov-number-to-reg
+        name: mov-number-to-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mov-number-to-regaddress
+  labels:
+    app: instruction
+    instruction: mov-number-to-regaddress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: mov-number-to-regaddress
+  template: 
+    metadata:
+      name: mov-number-to-regaddress
+      labels:
+        app: instruction
+        instruction: mov-number-to-regaddress
+    spec:
+      hostname: mov-number-to-regaddress
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/mov-number-to-regaddress
+        name: mov-number-to-regaddress
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: add-address-to-reg
+  labels:
+    app: instruction
+    instruction: add-address-to-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: add-address-to-reg
+  template: 
+    metadata:
+      name: add-address-to-reg
+      labels:
+        app: instruction
+        instruction: add-address-to-reg
+    spec:
+      hostname: add-address-to-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/add-address-to-reg
+        name: add-address-to-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sub-reg-from-reg
+  labels:
+    app: instruction
+    instruction: sub-reg-from-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: sub-reg-from-reg
+  template: 
+    metadata:
+      name: sub-reg-from-reg
+      labels:
+        app: instruction
+        instruction: sub-reg-from-reg
+    spec:
+      hostname: sub-reg-from-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/sub-reg-from-reg
+        name: sub-reg-from-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: add-regaddress-to-reg
+  labels:
+    app: instruction
+    instruction: add-regaddress-to-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: add-regaddress-to-reg
+  template: 
+    metadata:
+      name: add-regaddress-to-reg
+      labels:
+        app: instruction
+        instruction: add-regaddress-to-reg
+    spec:
+      hostname: add-regaddress-to-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/add-regaddress-to-reg
+        name: add-regaddress-to-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sub-regaddress-from-reg
+  labels:
+    app: instruction
+    instruction: sub-regaddress-from-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: sub-regaddress-from-reg
+  template: 
+    metadata:
+      name: sub-regaddress-from-reg
+      labels:
+        app: instruction
+        instruction: sub-regaddress-from-reg
+    spec:
+      hostname: sub-regaddress-from-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/sub-regaddress-from-reg
+        name: sub-regaddress-from-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: add-number-to-reg
+  labels:
+    app: instruction
+    instruction: add-number-to-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: add-number-to-reg
+  template: 
+    metadata:
+      name: add-number-to-reg
+      labels:
+        app: instruction
+        instruction: add-number-to-reg
+    spec:
+      hostname: add-number-to-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/add-number-to-reg
+        name: add-number-to-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sub-address-from-reg
+  labels:
+    app: instruction
+    instruction: sub-address-from-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: sub-address-from-reg
+  template: 
+    metadata:
+      name: sub-address-from-reg
+      labels:
+        app: instruction
+        instruction: sub-address-from-reg
+    spec:
+      hostname: sub-address-from-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/sub-address-from-reg
+        name: sub-address-from-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sub-number-from-reg
+  labels:
+    app: instruction
+    instruction: sub-number-from-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: sub-number-from-reg
+  template: 
+    metadata:
+      name: sub-number-from-reg
+      labels:
+        app: instruction
+        instruction: sub-number-from-reg
+    spec:
+      hostname: sub-number-from-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/sub-number-from-reg
+        name: sub-number-from-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dec-reg
+  labels:
+    app: instruction
+    instruction: dec-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: dec-reg
+  template: 
+    metadata:
+      name: dec-reg
+      labels:
+        app: instruction
+        instruction: dec-reg
+    spec:
+      hostname: dec-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/dec-reg
+        name: dec-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmp-reg-with-reg
+  labels:
+    app: instruction
+    instruction: cmp-reg-with-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: cmp-reg-with-reg
+  template: 
+    metadata:
+      name: cmp-reg-with-reg
+      labels:
+        app: instruction
+        instruction: cmp-reg-with-reg
+    spec:
+      hostname: cmp-reg-with-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/cmp-reg-with-reg
+        name: cmp-reg-with-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inc-reg
+  labels:
+    app: instruction
+    instruction: inc-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: inc-reg
+  template: 
+    metadata:
+      name: inc-reg
+      labels:
+        app: instruction
+        instruction: inc-reg
+    spec:
+      hostname: inc-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/inc-reg
+        name: inc-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmp-number-with-reg
+  labels:
+    app: instruction
+    instruction: cmp-number-with-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: cmp-number-with-reg
+  template: 
+    metadata:
+      name: cmp-number-with-reg
+      labels:
+        app: instruction
+        instruction: cmp-number-with-reg
+    spec:
+      hostname: cmp-number-with-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/cmp-number-with-reg
+        name: cmp-number-with-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmp-regaddress-with-reg
+  labels:
+    app: instruction
+    instruction: cmp-regaddress-with-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: cmp-regaddress-with-reg
+  template: 
+    metadata:
+      name: cmp-regaddress-with-reg
+      labels:
+        app: instruction
+        instruction: cmp-regaddress-with-reg
+    spec:
+      hostname: cmp-regaddress-with-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/cmp-regaddress-with-reg
+        name: cmp-regaddress-with-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jc-regaddress
+  labels:
+    app: instruction
+    instruction: jc-regaddress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: jc-regaddress
+  template: 
+    metadata:
+      name: jc-regaddress
+      labels:
+        app: instruction
+        instruction: jc-regaddress
+    spec:
+      hostname: jc-regaddress
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/jc-regaddress
+        name: jc-regaddress
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmp-address-with-reg
+  labels:
+    app: instruction
+    instruction: cmp-address-with-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: cmp-address-with-reg
+  template: 
+    metadata:
+      name: cmp-address-with-reg
+      labels:
+        app: instruction
+        instruction: cmp-address-with-reg
+    spec:
+      hostname: cmp-address-with-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/cmp-address-with-reg
+        name: cmp-address-with-reg
+        imagePullPolicy: Never
