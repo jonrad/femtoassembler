@@ -1,0 +1,15 @@
+{
+  "name": "mov-reg-to-regaddress",
+  "version": "1.0.0",
+  "description": "",
+  "main": "mov-reg-to-regaddress.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node mov-reg-to-regaddress.js"
+  },
+  "author": "",
+  "dependencies": {
+    "express": "^4.17.1",
+    "request": "^2.88.0"
+  }
+}

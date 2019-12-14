@@ -1,0 +1,15 @@
+{
+  "name": "mov-number-to-address",
+  "version": "1.0.0",
+  "description": "",
+  "main": "mov-number-to-address.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node mov-number-to-address.js"
+  },
+  "author": "",
+  "dependencies": {
+    "express": "^4.17.1",
+    "request": "^2.88.0"
+  }
+}

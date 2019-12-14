@@ -1,0 +1,15 @@
+{
+  "name": "div-regaddress",
+  "version": "1.0.0",
+  "description": "",
+  "main": "div-regaddress.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node div-regaddress.js"
+  },
+  "author": "",
+  "dependencies": {
+    "express": "^4.17.1",
+    "request": "^2.88.0"
+  }
+}

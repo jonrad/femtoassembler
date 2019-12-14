@@ -1,0 +1,15 @@
+{
+  "name": "sub-number-from-reg",
+  "version": "1.0.0",
+  "description": "",
+  "main": "sub-number-from-reg.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node sub-number-from-reg.js"
+  },
+  "author": "",
+  "dependencies": {
+    "express": "^4.17.1",
+    "request": "^2.88.0"
+  }
+}
