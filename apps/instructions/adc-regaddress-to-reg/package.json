@@ -1,0 +1,15 @@
+{
+  "name": "adc-regaddress-to-reg",
+  "version": "1.0.0",
+  "description": "",
+  "main": "adc-regaddress-to-reg.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node adc-regaddress-to-reg.js"
+  },
+  "author": "",
+  "dependencies": {
+    "express": "^4.17.1",
+    "request": "^2.88.0"
+  }
+}

@@ -1758,6 +1758,33 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: adc-reg-to-reg
+  labels:
+    app: instruction
+    instruction: adc-reg-to-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: adc-reg-to-reg
+  template: 
+    metadata:
+      name: adc-reg-to-reg
+      labels:
+        app: instruction
+        instruction: adc-reg-to-reg
+    spec:
+      hostname: adc-reg-to-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/adc-reg-to-reg
+        name: adc-reg-to-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: mov-number-to-reg
   labels:
     app: instruction
@@ -1839,6 +1866,33 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: adc-address-to-reg
+  labels:
+    app: instruction
+    instruction: adc-address-to-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: adc-address-to-reg
+  template: 
+    metadata:
+      name: adc-address-to-reg
+      labels:
+        app: instruction
+        instruction: adc-address-to-reg
+    spec:
+      hostname: adc-address-to-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/adc-address-to-reg
+        name: adc-address-to-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: sub-reg-from-reg
   labels:
     app: instruction
@@ -1893,6 +1947,33 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: adc-regaddress-to-reg
+  labels:
+    app: instruction
+    instruction: adc-regaddress-to-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: adc-regaddress-to-reg
+  template: 
+    metadata:
+      name: adc-regaddress-to-reg
+      labels:
+        app: instruction
+        instruction: adc-regaddress-to-reg
+    spec:
+      hostname: adc-regaddress-to-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/adc-regaddress-to-reg
+        name: adc-regaddress-to-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: sub-regaddress-from-reg
   labels:
     app: instruction
@@ -1941,6 +2022,33 @@ spec:
       containers:
       - image: femtoassembler/add-number-to-reg
         name: add-number-to-reg
+        imagePullPolicy: Never
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adc-number-to-reg
+  labels:
+    app: instruction
+    instruction: adc-number-to-reg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      instruction: adc-number-to-reg
+  template: 
+    metadata:
+      name: adc-number-to-reg
+      labels:
+        app: instruction
+        instruction: adc-number-to-reg
+    spec:
+      hostname: adc-number-to-reg
+      subdomain: instruction
+      containers:
+      - image: femtoassembler/adc-number-to-reg
+        name: adc-number-to-reg
         imagePullPolicy: Never
 
 ---

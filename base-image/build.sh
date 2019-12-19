@@ -1,2 +1,2 @@
-IMAGE_NAME=femtoaseembler/assembly-base
+IMAGE_NAME=femtoassembler/assembly-base
 docker build -t $IMAGE_NAME .

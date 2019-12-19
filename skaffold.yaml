@@ -83,6 +83,18 @@ build:
   - image: femtoassembler/add-number-to-reg
     context: apps/instructions/add-number-to-reg
   
+  - image: femtoassembler/adc-reg-to-reg
+    context: apps/instructions/adc-reg-to-reg
+  
+  - image: femtoassembler/adc-regaddress-to-reg
+    context: apps/instructions/adc-regaddress-to-reg
+  
+  - image: femtoassembler/adc-address-to-reg
+    context: apps/instructions/adc-address-to-reg
+  
+  - image: femtoassembler/adc-number-to-reg
+    context: apps/instructions/adc-number-to-reg
+
   - image: femtoassembler/sub-reg-from-reg
     context: apps/instructions/sub-reg-from-reg
   

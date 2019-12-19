@@ -23,7 +23,6 @@ async function run(input) {
 
 }
 
-//run();
 const filename = process.argv[2];
 const input = fs.readFileSync(filename, 'utf8');
 run(input);

@@ -78,7 +78,11 @@ var opcodes = {
   SHR_REG_WITH_REG: 94,
   SHR_REGADDRESS_WITH_REG: 95,
   SHR_ADDRESS_WITH_REG: 96,
-  SHR_NUMBER_WITH_REG: 97
+  SHR_NUMBER_WITH_REG: 97,
+  ADC_REG_TO_REG: 100,
+  ADC_REGADDRESS_TO_REG: 101,
+  ADC_ADDRESS_TO_REG: 102,
+  ADC_NUMBER_TO_REG: 103
 };
 
 //be wary, this is an array for faster lookup

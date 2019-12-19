@@ -75,7 +75,11 @@ var opcodes = {
   SHR_REG_WITH_REG: 94,
   SHR_REGADDRESS_WITH_REG: 95,
   SHR_ADDRESS_WITH_REG: 96,
-  SHR_NUMBER_WITH_REG: 97
+  SHR_NUMBER_WITH_REG: 97,
+  ADC_REG_TO_REG: 100,
+  ADC_REGADDRESS_TO_REG: 101,
+  ADC_ADDRESS_TO_REG: 102,
+  ADC_NUMBER_TO_REG: 103
 };
 
 var parseLine = function() {
@@ -314,6 +318,23 @@ var parseLine = function() {
                 opCode = opcodes.ADD_NUMBER_TO_REG;
               else
                 throw "ADD does not support this operands";
+
+              code.push(opCode, p1.value, p2.value);
+              break;
+            case 'ADC':
+              p1 = getValue(match[op1_group]);
+              p2 = getValue(match[op2_group]);
+
+              if (p1.type === "register" && p2.type === "register")
+                opCode = opcodes.ADC_REG_TO_REG;
+              else if (p1.type === "register" && p2.type === "regaddress")
+                opCode = opcodes.ADC_REGADDRESS_TO_REG;
+              else if (p1.type === "register" && p2.type === "address")
+                opCode = opcodes.ADC_ADDRESS_TO_REG;
+              else if (p1.type === "register" && p2.type === "number")
+                opCode = opcodes.ADC_NUMBER_TO_REG;
+              else
+                throw "ADC does not support this operands";
 
               code.push(opCode, p1.value, p2.value);
               break;
@@ -672,7 +693,7 @@ var parseLine = function() {
         label: label
       };
     } catch (e) {
-      throw {error: e, line: i};
+      throw e;
     }
   }
 }();
