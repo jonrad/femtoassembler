@@ -18,11 +18,18 @@ var send = function(url, body) {
 }
 
 async function run(input) {
-  var result = await send("http://executor/asm", { content: input });
-  console.log(result);
-
+  var output = (await send("http://executor/asm", {content: input})).result;
+  console.log(output.map(dec => {
+    var hex = dec.toString(16)
+    if (hex.length == 1) {
+      return '0' + hex;
+    } else {
+      return hex;
+    }
+  }));
 }
 
 const filename = process.argv[2];
 const input = fs.readFileSync(filename, 'utf8');
 run(input);
+
