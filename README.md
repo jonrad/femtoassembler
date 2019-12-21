@@ -1,22 +1,28 @@
 # femtoassembler
+Most of the javascript assembler and executor code is borrowed from https://github.com/Schweigi/assembler-simulator, I just ripped it apart using a combination of bash, perl and scripts written in node. 
 
 # Running
 
 ### Mac with Minikube
 
 * Create a new cluster:
+
 ```minikube start -p assembler```
 
 * Set the context for kubectl to the new cluster:
+
 ```kubectl config set-context assembler```
 
 * Set your docker environment to the new minikube context:
+
 ```eval $(minikube docker-env -p assembler)```
 
 * Optional: I had to kill my `dnsmasq` to get my minikube to be able to access the network properly (Why...?):
+
 ```sudo killall dnsmasq```
 
 * Start skaffold:
+
 ```./start_skaffold.sh```
 
 * Profit!?
