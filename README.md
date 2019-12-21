@@ -1,6 +1,14 @@
 # femtoassembler
-Most of the javascript assembler and executor code is borrowed from https://github.com/Schweigi/assembler-simulator, I just ripped it apart using a combination of bash, perl and scripts written in node. 
 
+We've seen the benefits of [femto-management](https://vimeo.com/95529846) over micro-management. So why are we still using micro-services?
+
+Microservices are a bust. They fail on every axis of comparison. They're not liberating enough. They're not confining enough. They're not loose enough. They're not tight enough. 
+
+For those looking to jump from mega-fund to peta-fund, the answer is femto-services. 
+
+Stop using a single CPU to run your applications. With the femtoassembler you can have each instruction run on a different node. Notice that you're application is calling ADD more than other instructions? Increase the replicas to the ADD instruction nodes!  
+
+### Demo
 
 Below gif shows an example run of calculating fib of 10 using an 8 bit integer values (Registers only, no need to use actual memory other than for the cpu instructions). The left pane is the result from skaffold, the next pane is the stdout of the cpu node, followed by 4 instruction nodes that I found interesting, followed by the actual command to run the command. The result is in hex: 
 ![8 Bit Fib(10)](examples/fib8bit.gif)
@@ -66,7 +74,18 @@ root@examples:/usr/src/app# node run.js fib.asm #fib(42) in HEX, using 32 bit bi
 ]
 ```
 
+# Architecture
+
+* Memory - Stores 256 bytes of data, which should be enough for anyone.
+* CPU - Runs the instructions based on what's in memory
+* Assembler Line Parser - Parses a single instruction line (such as `MOV A, B`) and returns the machine code representation
+* Assembler - Takes the assembler instructions, sends to the line parsers and puts it all together into memory
+* Executor - Runs the code in memory
+* add-reg-to-reg - Example instruction node. Takes a single instruction and updates the state of the execution
+
 # Tools used
+
+Most of the javascript assembler and executor code is borrowed from https://github.com/Schweigi/assembler-simulator, I just ripped it apart using a combination of bash, perl and scripts written in node. 
 
 * Neovim: https://neovim.io/
 * Skaffold: https://skaffold.dev/
