@@ -1,6 +1,8 @@
 # femtoassembler
 Most of the javascript assembler and executor code is borrowed from https://github.com/Schweigi/assembler-simulator, I just ripped it apart using a combination of bash, perl and scripts written in node. 
 
+![8 Bit Fib(10)](examples/fib8bit.gif)
+
 # Running
 
 ### Mac with Minikube
