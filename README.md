@@ -1,6 +1,8 @@
 # femtoassembler
 Most of the javascript assembler and executor code is borrowed from https://github.com/Schweigi/assembler-simulator, I just ripped it apart using a combination of bash, perl and scripts written in node. 
 
+
+Below gif shows an example run of calculating fib of 10 using an 8 bit integer values (Registers only, no need to use actual memory other than for the cpu instructions). The left pane is the result from skaffold, the next pane is the stdout of the cpu node, followed by 4 instruction nodes that I found interesting, followed by the actual command to run the command. The result is in hex: 
 ![8 Bit Fib(10)](examples/fib8bit.gif)
 
 # Running
