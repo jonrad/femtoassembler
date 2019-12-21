@@ -4,7 +4,7 @@ MOV C, 1
 .loop:
 MOV D, C
 CMP A, A
-ADC D, B
+ADD D, B
 MOV B, C
 MOV C, D
 INC A
